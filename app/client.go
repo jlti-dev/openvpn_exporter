@@ -96,7 +96,7 @@ func (c *Client) readResponse() (string, error) {
 		}
 		i++
 	}
-	log.Printf("%s: %s", c.Host, result)
+	//log.Printf("%s: %s", c.Host, result)
 	return result, nil
 }
 
