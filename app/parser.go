@@ -1,9 +1,9 @@
 package main
 
-import(
-	"strings"
+import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 //ParseVersion gets version information from string
@@ -18,6 +18,7 @@ func parseVersion(input string) (*Version, error) {
 
 	return &v, nil
 }
+
 //ParseStats gets stats from string
 func parseStats(input string) (*LoadStats, error) {
 	ls := LoadStats{}
@@ -56,6 +57,7 @@ func getLStatsValue(s string) (int64, error) {
 	}
 	return strconv.ParseInt(a[1], 10, 64)
 }
+
 //ParseStatus gets status information from string
 func parseStatus(input string) (*Status, error) {
 	s := &Status{}
@@ -77,17 +79,17 @@ func parseStatus(input string) (*Status, error) {
 			bytes, _ := strconv.ParseUint(fields[1], 10, 64)
 			s.WriteBytes = bytes
 		case c == "CLIENT_LIST":
-			bytesR, _ := strconv.ParseUint(fields[4], 10, 64)
-			bytesS, _ := strconv.ParseUint(fields[5], 10, 64)
+			bytesR, _ := strconv.ParseUint(fields[5], 10, 64)
+			bytesS, _ := strconv.ParseUint(fields[6], 10, 64)
 			item := &OVClient{
 				CommonName:      fields[1],
 				RealAddress:     fields[2],
 				VirtualAddress:  fields[3],
 				BytesReceived:   bytesR,
 				BytesSent:       bytesS,
-				ConnectedSince:  fields[6],
-				ConnectedSinceT: fields[7],
-				Username:        fields[8],
+				ConnectedSince:  fields[7],
+				ConnectedSinceT: fields[8],
+				Username:        fields[9],
 			}
 			s.ClientList = append(s.ClientList, item)
 		}
@@ -108,4 +110,3 @@ func isSuccess(s string) bool {
 	}
 	return false
 }
-
