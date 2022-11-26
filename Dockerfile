@@ -1,9 +1,7 @@
-FROM golang:1.16 as builder
+FROM golang:1.17 as builder
 WORKDIR /app
-COPY go.mod go.mod
-RUN go mod download
 COPY app /app
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+RUN go mod download &&  CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 FROM alpine:latest
 WORKDIR /app
